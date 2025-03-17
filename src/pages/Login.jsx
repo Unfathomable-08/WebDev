@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import Cloud from "../components/cloud";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
@@ -27,14 +28,24 @@ const Login = () => {
       
       <div className="relative bg-white shadow-[0_0_15px_#000000aa] rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden">
         {/* Cloud positioned at bottom-right */}
-        <div className="absolute bottom-[-20px] right-[-20px] z-5">
+        <motion.div 
+          className="absolute bottom-[-20px] right-[-20px] z-5"
+          initial={{bottom: "-160px", right: "-140px"}}
+          animate={{bottom: "-20px", right: "-20px"}}
+          transition={{duration: 1.5, ease: "easeInOut"}}
+          >
           <Cloud />
-        </div>
+        </motion.div>
 
         {/* Cloud positioned at bottom-right */}
-        <div className="absolute top-[-20px] left-[-120px] z-5 rotate-x-180">
+        <motion.div
+          className="absolute top-[-20px] left-[-120px] z-5 rotate-x-180"
+          initial={{top: "-120px", left: "-220px"}}
+          animate= {{top: "-20px", left: "-120px"}}
+          transition={{duration: 1.5, ease: "easeInOut"}}
+        >
           <Cloud />
-        </div>
+        </motion.div>
 
         <div className="relative z-10 w-1/2 p-6 text-center">
           <h1 className="text-2xl font-bold text-gray-800">Hello!</h1>
@@ -46,10 +57,16 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("email", { required: "Email is required" })}
+                {...register("email", { 
+                  required: "Email is required", 
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Invalid email format"
+                  }
+                })}
                 className="pl-10 pr-4 py-2 w-full border border-gray-500 rounded-md focus:ring focus:ring-[var(--primary)]"
-                />
-                { errors.email && <p className="text-red-600 text-start text-sm">{ errors.email.message }</p> }
+              />
+              {errors.email && <p className="text-red-600 text-start text-sm">{errors.email.message}</p>}
             </div>
 
             <div className="relative">

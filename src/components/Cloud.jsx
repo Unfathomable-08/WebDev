@@ -1,7 +1,25 @@
+import { motion } from "framer-motion";
+
 const Cloud = () => {
   return (
     <div className="relative h-[80px] w-[450px] transform scale-120">
-      <div className="relative filter drop-shadow-[0_0_0px_var(--primary)]">
+      <motion.div
+        className="relative filter drop-shadow-[0_0_0px_var(--primary)]"
+        initial={{ filter: "drop-shadow(0 0 0px var(--primary))" }}
+        whileInView={{
+          filter: [
+            "drop-shadow(0 0 0px var(--secondary))",
+            "drop-shadow(0 0 7px var(--secondary))",
+            "drop-shadow(0 0 3px var(--secondary))",
+            "drop-shadow(0 0 0px var(--secondary))",
+            "drop-shadow(0 0 7px var(--secondary))",
+            "drop-shadow(0 0 3px var(--secondary))",
+            "drop-shadow(0 0 0px var(--secondary))",
+          ],
+        }}
+        transition={{ duration: 5 }}
+      >
+
         <div className="absolute bg-[var(--primary)] rounded-full w-20 h-20 top-4 left-12"></div>
         <div className="absolute bg-[var(--primary)] rounded-full w-24 h-24 top-0 left-24"></div>
         <div className="absolute bg-[var(--primary)] rounded-full w-28 h-28 -top-8 left-40"></div>
@@ -11,7 +29,7 @@ const Cloud = () => {
         <div className="absolute bg-[var(--primary)] rounded-full w-16 h-16 top-6 left-96"></div>
         <div className="absolute bg-[var(--primary)] rounded-full w-22 h-22 -top-2 left-104"></div>
         <div className="absolute bg-[var(--primary)] rounded-full w-20 h-20 top-2 left-120"></div>
-      </div>
+      </motion.div>
     </div>
   );
 };
