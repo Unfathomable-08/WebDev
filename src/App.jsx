@@ -1,11 +1,14 @@
-import Cloud from './components/cloud'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 
 const App = () => {
   return (
     <div>
-      <Login/>
-      {/* <Cloud/> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

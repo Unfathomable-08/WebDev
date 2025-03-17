@@ -11,7 +11,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="relative bg-white shadow-lg rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden">
+      <div className="relative bg-white shadow-[0_0_15px_#000000aa] rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden">
         {/* Cloud positioned at bottom-right */}
         <div className="absolute bottom-[-20px] right-[-20px] z-5">
           <Cloud />
