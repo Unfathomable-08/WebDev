@@ -8,13 +8,13 @@ const Cloud = () => {
         initial={{ filter: "drop-shadow(0 0 0px var(--primary))" }}
         whileInView={{
           filter: [
-            "drop-shadow(0 0 0px var(--secondary))",
-            "drop-shadow(0 0 7px var(--secondary))",
-            "drop-shadow(0 0 3px var(--secondary))",
-            "drop-shadow(0 0 0px var(--secondary))",
-            "drop-shadow(0 0 7px var(--secondary))",
-            "drop-shadow(0 0 3px var(--secondary))",
-            "drop-shadow(0 0 0px var(--secondary))",
+            "drop-shadow(0 0 0px var(--primary))",
+            "drop-shadow(0 0 7px var(--primary))",
+            "drop-shadow(0 0 5px var(--primary))",
+            "drop-shadow(0 0 0px var(--primary))",
+            "drop-shadow(0 0 8px var(--primary))",
+            "drop-shadow(0 0 5px var(--primary))",
+            "drop-shadow(0 0 0px var(--primary))",
           ],
         }}
         transition={{ duration: 5 }}
