@@ -29,28 +29,27 @@ const Login = () => {
       </svg>
 
       <div className={`relative bg-white shadow-[0_0_15px_#000000aa] rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden transform ${showSignup ? "rotate-y-180" : ""}`}>
+        
         {/* Cloud positioned at bottom-right */}
         <motion.div 
+          key={showSignup ? "signup" : "login"}
           className="absolute bottom-[-20px] right-[-20px] z-5"
           initial={{bottom: "-160px", right: "-140px"}}
           animate={{bottom: "-20px", right: "-20px"}}
           transition={{duration: 1.5, ease: "easeInOut"}}
-        >
-          {showSignup && <Cloud key="signup" />}
-          {!showSignup && <Cloud key="login" />}
-
+          >
+          <Cloud />
         </motion.div>
 
         {/* Cloud positioned at top-left */}
         <motion.div
+          key={showSignup ? "signup2" : "login2"}
           className="absolute top-[-20px] left-[-120px] z-5 rotate-x-180"
           initial={{top: "-120px", left: "-220px"}}
           animate={{top: "-20px", left: "-120px"}}
           transition={{duration: 1.5, ease: "easeInOut"}}
-          >
-          {showSignup && <Cloud key="signup" />}
-          {!showSignup && <Cloud key="login" />}
-          
+        >
+          <Cloud />
         </motion.div>
 
         <div className={`relative z-10 w-1/2 py-6 text-center transform ${showSignup ? "rotate-y-180" : ""}`}>
