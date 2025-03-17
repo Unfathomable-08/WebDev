@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUser, FaPhone } from "react-icons/fa";
 import Cloud from "../components/cloud";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const [showSignup, setShowSignup] = useState(false);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -12,7 +14,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-
+      {/* Background Blobs */}
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-100 h-100 left-4 -top-12 filter blur-xs">
         <path fill="#FFA75F" d="M27.4,-10.8C39.5,5.1,56,23.5,52.2,38.3C48.3,53.1,24.2,64.3,2.5,62.8C-19.2,61.4,-38.4,47.3,-51.4,27.3C-64.3,7.2,-71.1,-18.9,-61.5,-33.3C-51.9,-47.7,-25.9,-50.6,-9.1,-45.3C7.7,-40,15.4,-26.7,27.4,-10.8Z" transform="translate(100 100)" />
       </svg>
@@ -25,33 +27,66 @@ const Login = () => {
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute w-60 h-60 left-6 bottom-0 filter blur-xs">
         <path fill="#FFA75F" d="M36.5,-59.5C47.6,-49.7,57,-40,61.9,-28.5C66.9,-17,67.4,-3.6,65,9C62.7,21.6,57.5,33.5,50.1,45.1C42.7,56.8,33,68.2,19.8,76.1C6.5,84.1,-10.4,88.4,-26,85.3C-41.6,82.2,-56,71.6,-63,57.8C-70.1,44,-69.9,27,-66.3,13.1C-62.7,-0.7,-55.7,-11.5,-49.7,-22C-43.8,-32.5,-38.9,-42.7,-30.8,-53.8C-22.7,-64.9,-11.3,-77,0.7,-78.1C12.7,-79.2,25.4,-69.3,36.5,-59.5Z" transform="translate(100 100)" />
       </svg>
-      
-      <div className="relative bg-white shadow-[0_0_15px_#000000aa] rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden">
+
+      <div className={`relative bg-white shadow-[0_0_15px_#000000aa] rounded-2xl p-8 w-full max-w-2xl flex overflow-hidden transform ${showSignup ? "rotate-y-180" : ""}`}>
         {/* Cloud positioned at bottom-right */}
         <motion.div 
           className="absolute bottom-[-20px] right-[-20px] z-5"
           initial={{bottom: "-160px", right: "-140px"}}
           animate={{bottom: "-20px", right: "-20px"}}
           transition={{duration: 1.5, ease: "easeInOut"}}
-          >
-          <Cloud />
+        >
+          {showSignup && <Cloud key="signup" />}
+          {!showSignup && <Cloud key="login" />}
+
         </motion.div>
 
-        {/* Cloud positioned at bottom-right */}
+        {/* Cloud positioned at top-left */}
         <motion.div
           className="absolute top-[-20px] left-[-120px] z-5 rotate-x-180"
           initial={{top: "-120px", left: "-220px"}}
-          animate= {{top: "-20px", left: "-120px"}}
+          animate={{top: "-20px", left: "-120px"}}
           transition={{duration: 1.5, ease: "easeInOut"}}
-        >
-          <Cloud />
+          >
+          {showSignup && <Cloud key="signup" />}
+          {!showSignup && <Cloud key="login" />}
+          
         </motion.div>
 
-        <div className="relative z-10 w-1/2 p-6 text-center">
-          <h1 className="text-2xl font-bold text-gray-800">Hello!</h1>
-          <p className="text-black mb-6">Sign in to your account</p>
+        <div className={`relative z-10 w-1/2 py-6 text-center transform ${showSignup ? "rotate-y-180" : ""}`}>
+          <h1 className="text-2xl font-bold text-gray-800">{showSignup ? "Create Account" : "Hello!"}</h1>
+          <p className="text-black mb-6">{showSignup ? "Sign up to get started" : "Sign in to your account"}</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {showSignup && (
+              <>
+                {/* Full Name Field */}
+                <div className="relative">
+                  <FaUser className="absolute left-3 top-3 text-[var(--primary)]" />
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    {...register("fullName", { required: "Full Name is required" })}
+                    className="pl-10 pr-4 py-2 w-full border border-gray-500 rounded-md focus:ring focus:ring-[var(--primary)]"
+                  />
+                  {errors.fullName && <p className="text-red-600 text-start text-sm">{errors.fullName.message}</p>}
+                </div>
+
+                {/* Contact Field */}
+                <div className="relative">
+                  <FaPhone className="absolute left-3 top-3 text-[var(--primary)]" />
+                  <input
+                    type="tel"
+                    placeholder="Contact Number"
+                    {...register("contact", { required: "Contact number is required" })}
+                    className="pl-10 pr-4 py-2 w-full border border-gray-500 rounded-md focus:ring focus:ring-[var(--primary)]"
+                  />
+                  {errors.contact && <p className="text-red-600 text-start text-sm">{errors.contact.message}</p>}
+                </div>
+              </>
+            )}
+
+            {/* Email Field */}
             <div className="relative">
               <FaEnvelope className="absolute left-3 top-3 text-[var(--primary)]" />
               <input
@@ -69,6 +104,7 @@ const Login = () => {
               {errors.email && <p className="text-red-600 text-start text-sm">{errors.email.message}</p>}
             </div>
 
+            {/* Password Field */}
             <div className="relative">
               <FaLock className="absolute left-3 top-3 text-[var(--primary)]" />
               <input
@@ -77,46 +113,56 @@ const Login = () => {
                 {...register("password", { required: "Password is required" })}
                 className="pl-10 pr-4 py-2 w-full border border-gray-500 rounded-md focus:ring focus:ring-[var(--primary)]"
               />
-              { errors.password && <p className="text-red-600 text-start text-sm">{ errors.password.message }</p> }
+              {errors.password && <p className="text-red-600 text-start text-sm">{errors.password.message}</p>}
             </div>
 
-            <div className="flex justify-between items-center text-sm">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 border border-gray-300 rounded-[4px] bg-white checked:bg-[var(--primary)] checked:border-[var(--primary)] accent-[var(--primary)]"
-                />
-                <span>Remember me</span>
-              </label>
+            {!showSignup && (
+              <div className="flex justify-between items-center text-sm">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 border border-gray-300 rounded-[4px] bg-white checked:bg-[var(--primary)] checked:border-[var(--primary)] accent-[var(--primary)]"
+                  />
+                  <span>Remember me</span>
+                </label>
 
-              <a href="#" className="text-[var(--secondary)] hover:underline">
-                Forgot password?
-              </a>
-            </div>
+                <a href="#" className="text-[var(--secondary)] hover:underline">
+                  Forgot password?
+                </a>
+              </div>
+            )}
 
             <button
               type="submit"
               disabled={isSubmitting}
               className="w-full py-2 bg-[var(--primary)] text-white rounded-md hover:bg-[var(--secondary)]"
             >
-              Sign In
+              {showSignup ? "Sign Up" : "Sign In"}
             </button>
           </form>
 
           <p className="text-sm text-center mt-4">
-            Don't have an account?{" "}
-            <a href="#" className="text-[var(--secondary)] hover:underline">
-              Create New
-            </a>
+            {showSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+            <button
+              className="text-[var(--secondary)] hover:underline"
+              onClick={() => setShowSignup(!showSignup)}
+            >
+              {showSignup ? "Sign In" : "Create New"}
+            </button>
           </p>
         </div>
 
-        <div className="relative transform -translate-y-4 z-10 w-1/2 flex flex-col justify-center items-center p-6 rounded-2xl">
-          <h2 className="text-xl font-bold">Welcome Back!</h2>
+        {/* Right Section: Info */}
+        <div className={`relative transform -translate-y-4 z-10 w-1/2 flex flex-col justify-center items-center p-6 rounded-2xl transform ${showSignup ? "rotate-y-180" : ""}`}>
+          <h2 className="text-xl font-bold">{showSignup ? "Welcome!" : "Welcome Back!"}</h2>
           <p className="text-center text-sm mt-2">
-            Craving something delicious? Sign in to order your favorites!
+            {showSignup 
+              ? "Join us and explore a world of possibilities!"
+              : "Craving something delicious? Sign in to order your favorites!"
+            }
           </p>
         </div>
+
       </div>
     </div>
   );
