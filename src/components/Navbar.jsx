@@ -51,7 +51,7 @@ const Navbar = () => {
               key={index}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+              transition={{ delay: 0.2 + index * 0.2, duration: 1 }}
               whileHover={{ scale: 1.15, rotate: 3 }}
               className="flex flex-col items-center cursor-pointer transition-all duration-300 transform hover:text-yellow-300 hover:drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]"
             >
