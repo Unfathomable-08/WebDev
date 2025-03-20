@@ -49,8 +49,8 @@ const Product = () => {
                 )}
               </div>
               <Link
-                to={`/product/${product.id}`} // Ensure product.id is passed correctly
-                className="mt-4 block text-center bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition"
+                to={`/product/${product._id}`} // Ensure product.id is passed correctly
+                className="mt-4 block text-center bg-[var(--primary)] text-white py-2 rounded-lg hover:bg-var(--secondary) transition"
               >
                 View Details
               </Link>

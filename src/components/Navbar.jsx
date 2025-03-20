@@ -1,7 +1,10 @@
 import { FaHome, FaSearch, FaHeart, FaUser, FaShoppingCart, FaCog } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [active, setActive] = useState("Home");
+
   return (
     <>
       {/* Top Navbar */}
@@ -13,15 +16,27 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-12 h-16">
           
-          {/* Logo */}
-          <motion.h1
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="text-white text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow-lg"
-          >
-            Food <span className="text-yellow-300">Hub</span>
-          </motion.h1>
+          {/* Logo & Search Icon (for sm/xs) */}
+          <div className="flex items-center max-md:w-full">
+            <motion.h1
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+              className="text-white text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow-lg"
+            >
+              Food <span className="text-yellow-300">Hub</span>
+            </motion.h1>
+
+            {/* Search Icon for sm/xs */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+              className="md:hidden text-white text-2xl cursor-pointer hover:text-yellow-300 transition-all duration-300 ml-auto"
+            >
+              <FaSearch />
+            </motion.div>
+          </div>
 
           {/* Search Bar (Hidden on md and below) */}
           <motion.div
@@ -69,7 +84,7 @@ const Navbar = () => {
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="fixed bottom-0 w-full bg-[var(--primary)] bg-opacity-90 backdrop-blur-lg shadow-xl border-t border-white/10 z-50 md:hidden flex justify-around py-2"
+        className="fixed bottom-0 w-full bg-[var(--primary)] bg-opacity-90 backdrop-blur-lg shadow-xl border-t-16 border-white z-50 md:hidden flex justify-around py-2"
       >
         {[
           { icon: FaHome, label: "Home" },
@@ -80,8 +95,8 @@ const Navbar = () => {
         ].map(({ icon: Icon, label }, index) => (
           <motion.div
             key={index}
-            whileTap={{ scale: 0.9 }}
-            className={`${label == "Home" ? "active" : ""} flex flex-col items-center text-white transition-all duration-300 transform hover:text-yellow-300 w-10 h-10`}
+            className={`${label === active ? "active" : ""} flex flex-col items-center text-white transition-all duration-300 transform hover:text-yellow-300 w-10 h-10`}
+            onClick={() => setActive(label)}
           >
             <Icon className="text-2xl" />
             <p className="text-xs font-semibold">{label}</p>
