@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function FilterModal({ onClose }) {
     const [price, setPrice] = useState([0, 2000]);
-    const [priceSel, setPriceSel] = useState([500, 2000]);
+    const [priceSel, setPriceSel] = useState([500, 1200]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [rating, setRating] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -19,7 +19,7 @@ export default function FilterModal({ onClose }) {
             setProducts(response.data);
 
             // Extract unique categories
-            const uniqueCategories = [...new Set(response.data.map(product => product.category))];
+            const uniqueCategories = [...new Set(response.data.map(product => product.brand))];
             setCategories(uniqueCategories);
 
             // Determine price range
@@ -52,7 +52,7 @@ export default function FilterModal({ onClose }) {
                 <h1 className="font-medium text-base mb-2">Price Range</h1>
                 <Slider
                     value={priceSel}
-                    onChange={(e, newValue) => setPrice(newValue)}
+                    onChange={(e, newValue) => setPriceSel(newValue)}
                     valueLabelDisplay="auto"
                     min={price[0]}
                     max={price[1]}
