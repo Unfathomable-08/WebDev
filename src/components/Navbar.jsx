@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
+  const [searchBar, setSearchBar] = useState(false);
 
   return (
     <>
@@ -12,7 +13,7 @@ const Navbar = () => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="bg-[var(--primary)] bg-opacity-80 backdrop-blur-xl fixed top-0 w-full shadow-2xl border-b border-white/10 z-50"
+        className="bg-[var(--primary)] bg-opacity-80 backdrop-blur-xl fixed top-0 w-full border-b border-white/10 z-50"
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-12 h-16">
           
@@ -33,6 +34,7 @@ const Navbar = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
               className="md:hidden text-white text-2xl cursor-pointer hover:text-yellow-300 transition-all duration-300 ml-auto"
+              onClick={() => { setSearchBar((prev) => !prev); window.scrollTo(0, 0) }}
             >
               <FaSearch />
             </motion.div>
@@ -103,6 +105,26 @@ const Navbar = () => {
           </motion.div>
         ))}
       </motion.div>
+
+      {/*  Search Bar on sm/xs */}
+      {searchBar &&
+        <div className="relative top-20 drop-shadow-xl my-2 pb-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+            className="relative w-screen group px-8"
+          >
+            <FaSearch className="absolute left-11 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 group-focus-within:text-yellow-300" />
+            <motion.input
+              whileFocus={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(252, 211, 77, 0.4)" }}
+              type="search"
+              className="w-full pl-10 pr-4 py-1 rounded-full bg-white text-gray-700 shadow-[2px_2px_7px_#00000055] focus:ring-2 focus:ring-yellow-300 outline-none transition-all duration-300 group-hover:shadow-2xl"
+              placeholder="Search for delicious food..."
+            />
+          </motion.div>
+        </div>
+      }
     </>
   );
 };
