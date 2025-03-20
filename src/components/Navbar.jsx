@@ -107,7 +107,7 @@ const Navbar = () => {
       </motion.div>
 
       {/*  Search Bar on sm/xs */}
-      {searchBar &&
+      {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && (
         <div className="relative top-20 drop-shadow-xl my-2 pb-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -124,7 +124,8 @@ const Navbar = () => {
             />
           </motion.div>
         </div>
-      }
+      )}
+
     </>
   );
 };
