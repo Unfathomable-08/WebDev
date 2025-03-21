@@ -1,4 +1,3 @@
-import Filters from "../components/Filters"
 import Navbar from "../components/Navbar"
 import Product from "../components/Product"
 
@@ -7,7 +6,6 @@ const Home = () => {
     <div>
       <Navbar/>
       <Product/>
-      <Filters/>
     </div>
   )
 }

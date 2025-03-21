@@ -1,4 +1,4 @@
-import { FaHome, FaSearch, FaHeart, FaUser, FaShoppingCart, FaCog } from "react-icons/fa";
+import { FaHome, FaSearch, FaHeart, FaUser, FaShoppingCart, FaCog, FaFilter } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -108,24 +108,29 @@ const Navbar = () => {
 
       {/*  Search Bar on sm/xs */}
       {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && (
-        <div className="relative top-20 drop-shadow-xl my-2 pb-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-            className="relative w-screen group px-8"
-          >
-            <FaSearch className="absolute left-11 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 group-focus-within:text-yellow-300" />
-            <motion.input
-              whileFocus={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(252, 211, 77, 0.4)" }}
-              type="search"
-              className="w-full pl-10 pr-4 py-1 rounded-full bg-white text-gray-700 shadow-[2px_2px_7px_#00000055] focus:ring-2 focus:ring-yellow-300 outline-none transition-all duration-300 group-hover:shadow-2xl"
-              placeholder="Search for delicious food..."
-            />
-          </motion.div>
-        </div>
-      )}
+          <div className="relative top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-6 justify-between px-8">
+              <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+                  className="relative w-full group"
+              >
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 group-focus-within:text-[var(--secondary)]" />
+                  <motion.input
+                      whileFocus={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(252, 211, 77, 0.4)" }}
+                      type="search"
+                      className="w-full pl-10 pr-4 py-1 rounded-full bg-white text-gray-700 shadow-[2px_2px_7px_#00000055] focus:ring-2 focus:ring-[var(--primary)] outline-none transition-all duration-300 group-hover:shadow-2xl"
+                      placeholder="Search for delicious food..."
+                  />
+              </motion.div>
 
+              {/* Filter Button (Only visible on md screens) */}
+              <button className="hidden md:flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-full shadow-md hover:bg-[var(--secondary)] transition">
+                  <FaFilter />
+                  Filters
+              </button>
+          </div>
+      )}
     </>
   );
 };

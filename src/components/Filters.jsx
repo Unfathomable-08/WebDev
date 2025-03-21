@@ -3,7 +3,6 @@ import { RxCross1 } from "react-icons/rx";
 import { FaStar } from "react-icons/fa";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
-import { div } from "framer-motion/client";
 
 export default function FilterModal({ onClose }) {
     const [price, setPrice] = useState([0, 2000]);
@@ -31,17 +30,15 @@ export default function FilterModal({ onClose }) {
             // Divide price range into 20 segments
             const maxPrice = Math.max(...prices);
             const rangeSize = maxPrice / 20;
-            let priceRangeData = Array(20).fill(0); // Array to store counts
+            let priceRangeData = Array(20).fill(0);
 
-            // Count products in each range
             response.data.forEach(product => {
                 let index = Math.floor(product.price / rangeSize);
-                if (index >= 20) index = 19; // Ensure it doesn't exceed bounds
+                if (index >= 20) index = 19; 
                 priceRangeData[index]++;
             });
 
-            setPriceRange(priceRangeData); // Store in state
-
+            setPriceRange(priceRangeData);
         } catch (error) {
             console.error("Error Fetching Data", error);
         }
@@ -58,7 +55,11 @@ export default function FilterModal({ onClose }) {
     };
 
     return (
-        <div className="fixed bottom-14 bg-white min-h-[70vh] overflow-y-auto p-4 w-screen shadow-[0_-10px_10px_#00000055] rounded-tl-3xl rounded-tr-3xl">
+        <div className="fixed bg-white 
+            w-screen max-sm:min-h-[70vh] sm:h-[55vh] bottom-14 left-0 right-0 overflow-y-auto rounded-tl-3xl rounded-tr-3xl shadow-[0_-10px_10px_#00000055] p-4
+            md:w-[250px] md:h-screen md:top-18 md:right-0 md:rounded-none md:shadow-xl md:border-l md:border-gray-200">
+
+            {/* Header */}
             <div className="flex justify-between items-center mb-4">
                 <h1 className="font-medium text-lg">Filters</h1>
                 <RxCross1 className="text-lg font-bold cursor-pointer" onClick={onClose} />
@@ -68,17 +69,18 @@ export default function FilterModal({ onClose }) {
             <div className="mb-6">
                 <h1 className="font-medium text-base mb-2">Price Range</h1>
 
-                {/* Bars */}
+                {/* Price Distribution Bars */}
                 <div className="flex justify-center">
                     <div className="flex justify-evenly items-end max-w-70 gap-2">
-                    {priceRange.map((price, index) => 
-                        price !== 0 && (
-                            <div key={index} className="w-2 bg-gray-300" style={{ height: price * 18 + "px" }}></div>
-                        )
-                    )}
+                        {priceRange.map((price, index) =>
+                            price !== 0 && (
+                                <div key={index} className="w-2 sm:w-4 md:w-2 bg-gray-300" style={{ height: price * 18 + "px" }}></div>
+                            )
+                        )}
                     </div>
                 </div>
-                
+
+                {/* Slider */}
                 <Slider
                     value={priceSel}
                     onChange={(e, newValue) => setPriceSel(newValue)}
@@ -100,9 +102,9 @@ export default function FilterModal({ onClose }) {
                     {categories.map((category) => (
                         <button
                             key={category}
-                            className={`px-4 py-2 rounded-full border ${
-                                selectedCategories.includes(category) ? "bg-[var(--primary)] border-[var(--primary)] text-white" : "border-gray-300"
-                            } transition-all`}
+                            className={`px-4 py-2 rounded-full border 
+                                ${selectedCategories.includes(category) ? "bg-[var(--primary)] border-[var(--primary)] text-white" : "border-gray-300"} 
+                                transition-all`}
                             onClick={() => handleCategoryClick(category)}
                         >
                             {category}
