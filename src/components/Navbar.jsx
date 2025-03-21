@@ -79,6 +79,7 @@ const Navbar = () => {
           { icon: FaHeart, label: "Favorite", path: "/Favorite" },
           { icon: FaUser, label: "Profile", path: "/profile" },
           { icon: FaShoppingCart, label: "Cart", path: "/Cart" },
+          
           { icon: FaCog, label: "Settings", path: "/settings" },
         ].map(({ icon: Icon, label, path }, index) => (
           <Link key={index} to={path} passHref>

@@ -21,8 +21,7 @@ const App = () => {
     })
   };
 
-  // 🗑️ Function to Remove from Cart
-  const handleRemoveFromCart = (productId) => {
+   const handleRemoveFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
   };
 

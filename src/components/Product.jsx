@@ -14,11 +14,9 @@ const Product = () => {
       console.error("Error Fetching Data", error);
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
-
   if (products.length === 0) return <p className="text-center text-gray-500">Loading...</p>;
 
   return (

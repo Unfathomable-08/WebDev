@@ -14,7 +14,6 @@ const ProductDetail = ({ handleAddToCart }) => {
       setLoading(false);
       return;
     }
-
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`https://jsonserver.reactbd.com/phone/${id}`);
