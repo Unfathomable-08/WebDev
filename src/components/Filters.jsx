@@ -3,6 +3,7 @@ import { RxCross1 } from "react-icons/rx";
 import { FaStar } from "react-icons/fa";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
+import { div } from "framer-motion/client";
 
 export default function FilterModal({ onClose }) {
     const [price, setPrice] = useState([0, 2000]);
@@ -11,6 +12,7 @@ export default function FilterModal({ onClose }) {
     const [rating, setRating] = useState(null);
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    const [priceRange, setPriceRange] = useState([]);
 
     const fetchProducts = async () => {
         try {
@@ -25,6 +27,21 @@ export default function FilterModal({ onClose }) {
             // Determine price range
             const prices = response.data.map(product => product.price);
             setPrice([Math.min(...prices), Math.max(...prices)]);
+
+            // Divide price range into 20 segments
+            const maxPrice = Math.max(...prices);
+            const rangeSize = maxPrice / 20;
+            let priceRangeData = Array(20).fill(0); // Array to store counts
+
+            // Count products in each range
+            response.data.forEach(product => {
+                let index = Math.floor(product.price / rangeSize);
+                if (index >= 20) index = 19; // Ensure it doesn't exceed bounds
+                priceRangeData[index]++;
+            });
+
+            setPriceRange(priceRangeData); // Store in state
+
         } catch (error) {
             console.error("Error Fetching Data", error);
         }
@@ -41,7 +58,7 @@ export default function FilterModal({ onClose }) {
     };
 
     return (
-        <div className="fixed bottom-0 bg-white h-[70vh] p-4 w-screen shadow-[0_-10px_10px_#00000055] rounded-tl-3xl rounded-tr-3xl">
+        <div className="fixed bottom-14 bg-white min-h-[70vh] overflow-y-auto p-4 w-screen shadow-[0_-10px_10px_#00000055] rounded-tl-3xl rounded-tr-3xl">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="font-medium text-lg">Filters</h1>
                 <RxCross1 className="text-lg font-bold cursor-pointer" onClick={onClose} />
@@ -50,6 +67,18 @@ export default function FilterModal({ onClose }) {
             {/* Price Range */}
             <div className="mb-6">
                 <h1 className="font-medium text-base mb-2">Price Range</h1>
+
+                {/* Bars */}
+                <div className="flex justify-center">
+                    <div className="flex justify-evenly items-end max-w-70 gap-2">
+                    {priceRange.map((price, index) => 
+                        price !== 0 && (
+                            <div key={index} className="w-2 bg-gray-300" style={{ height: price * 18 + "px" }}></div>
+                        )
+                    )}
+                    </div>
+                </div>
+                
                 <Slider
                     value={priceSel}
                     onChange={(e, newValue) => setPriceSel(newValue)}
