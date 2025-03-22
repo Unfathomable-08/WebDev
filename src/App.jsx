@@ -39,6 +39,8 @@ const App = () => {
         />
         <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
         <Route path="/Favorite" element={<Favorite />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/products" element={<ProductOverview />} />
       </Routes>
     </BrowserRouter>
   );
