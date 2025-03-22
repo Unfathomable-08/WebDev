@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useParams, Link } from "react-router-dom";
 
-const ProductDetail = () => {
+const ProductDetail = ({ handleAddToCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,6 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`https://jsonserver.reactbd.com/phone/${id}`);
-        console.log("Fetched Product:", response.data);
         setProduct(response.data);
       } catch (error) {
         console.error("Error Fetching Product Data", error);
@@ -25,13 +25,14 @@ const ProductDetail = () => {
         setLoading(false);
       }
     };
-
+    
     fetchProduct();
-  }, [id]); // Only fetch if id is defined
+  }, [id]);
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
-  if (!product) return <p className="text-center text-red-500">Product not found</p>;
+  if (!product)
+    return <p className="text-center text-red-500">Product not found</p>;
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 p-6 mt-6">
@@ -43,9 +44,7 @@ const ProductDetail = () => {
         <div>
           <span className="text-lg font-semibold text-orange-600">${product.price}</span>
           {product.previousPrice && (
-            <span className="text-sm line-through text-gray-400 ml-2">
-              ${product.previousPrice}
-            </span>
+            <span className="text-sm line-through text-gray-400 ml-2">${product.previousPrice}</span>
           )}
         </div>
       </div>
@@ -55,6 +54,10 @@ const ProductDetail = () => {
       <Link to="/" className="mt-4 block text-center text-orange-600 underline">
         Back to Products
       </Link>
+      <div className="text-black text-2xl flex justify-between mt-4">
+        <FaHeart />
+        <FaShoppingCart onClick={() => handleAddToCart(product)} className="cursor-pointer" />
+      </div>
     </div>
   );
 };
