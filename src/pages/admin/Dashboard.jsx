@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import { BsSearch } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const data = [
   { name: "Jan", sold: 30, returned: 70 },
@@ -43,7 +44,7 @@ const Dashboard = () => {
             Food <span className="text-yellow-300">Hub</span>
           </h1>
           <ul className="mt-5 space-y-3">
-            {["Overview", "Analytics", "Order", "Product", "Transaction", "Shipping", "Users"].map((item) => (
+            {["Overview", "Products", "Analytics", "Order", "Transaction", "Shipping", "Users"].map((item) => (
               <li
                 key={item}
                 onClick={() => setActive(item)}
@@ -51,7 +52,7 @@ const Dashboard = () => {
                   active === item ? "bg-white text-[var(--primary)]" : "hover:bg-white/20"
                 }`}
               >
-                <MdDashboard /> {item}
+                <MdDashboard /><Link to={`/admin/${item.toLowerCase()}`}>{item}</Link>
               </li>
             ))}
           </ul>
