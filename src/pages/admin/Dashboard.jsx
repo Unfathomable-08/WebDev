@@ -44,7 +44,7 @@ const Dashboard = () => {
             Food <span className="text-yellow-300">Hub</span>
           </h1>
           <ul className="mt-5 space-y-3">
-            {["Overview", "Products", "Analytics", "Order", "Transaction", "Shipping", "Users"].map((item) => (
+            {["Overview", "Products", "Order", "Transaction", "Shipping", "Users"].map((item) => (
               <li
                 key={item}
                 onClick={() => setActive(item)}

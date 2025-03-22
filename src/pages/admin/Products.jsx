@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiLogOut, FiSettings, FiTrash2 } from "react-icons/fi";
 import { BsSearch } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [active, setActive] = useState("Products");
+  const [preview, setPreview] = useState("");
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -63,22 +67,31 @@ const ProductOverview = () => {
             Food <span className="text-yellow-300">Hub</span>
           </h1>
           <ul className="mt-5 space-y-3">
-            {["Overview", "Product", "Analytics", "Order", "Transaction", "Shipping", "Users"].map((item) => (
+            {["Overview", "Products", "Order", "Transaction", "Shipping", "Users"].map((item) => (
               <li
                 key={item}
+                onClick={() => setActive(item)}
                 className={`p-2 flex items-center gap-3 cursor-pointer rounded-md ${
-                  item === "Product" ? "bg-white text-[var(--primary)]" : "hover:bg-white/20"
+                  active === item ? "bg-white text-[var(--primary)]" : "hover:bg-white/20"
                 }`}
               >
-                <MdDashboard /> {item}
+                <MdDashboard /><Link to={`/admin/${item.toLowerCase()}`}>{item}</Link>
               </li>
             ))}
           </ul>
         </div>
+        <div>
+          <div className="flex items-center gap-3 cursor-pointer p-2 hover:bg-white/20 rounded-md">
+            <FiSettings /> Settings
+          </div>
+          <div className="flex items-center gap-3 cursor-pointer p-2 font-medium hover:bg-white/20 rounded-md text-red-500">
+            <FiLogOut /> Logout
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-5 ms-64">
+      <div className="flex-1 p-5 ms-64 mt-18">
         {/* Top Bar */}
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-2xl font-bold">Products</h1>
@@ -146,24 +159,53 @@ const ProductOverview = () => {
       </div>
 
       {/* Add/Edit Product Form Modal */}
-      {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-5 rounded-lg shadow-md w-96">
+
+        {showForm && (
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-[3px]">
+            <div className="bg-white p-5 rounded-lg w-96 shadow-[0_0_25px_#00000055]">
             <h2 className="text-xl font-medium pb-3">{editingProduct ? "Edit Product" : "Add Product"}</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-              <input {...register("title")} placeholder="Product Name" className="w-full p-2 border rounded-md" required />
-              <input {...register("brand")} placeholder="Brand" className="w-full p-2 border rounded-md" required />
-              <input {...register("category")} placeholder="Category" className="w-full p-2 border rounded-md" required />
-              <input type="number" {...register("price")} placeholder="Price" className="w-full p-2 border rounded-md" required />
-              <input {...register("image")} placeholder="Image URL" className="w-full p-2 border rounded-md" required />
-              <div className="flex justify-end gap-3">
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 relative">
+                <input {...register("title")} placeholder="Product Name" className="w-full p-2 border border-gray-500 rounded-md" required />
+                <input {...register("brand")} placeholder="Brand" className="w-full p-2 border border-gray-500 rounded-md" required />
+                <input {...register("category")} placeholder="Category" className="w-full p-2 border rounded-md border-gray-500" required />
+                <input type="number" {...register("price")} placeholder="Price" className="w-full p-2 border rounded-md border-gray-500" required />
+
+                {/* File Input */}
+                <div className="border border-dashed border-gray-700 rounded-md p-2 text-center cursor-pointer">
+                <label className="cursor-pointer flex flex-col items-center gap-1">
+                    <FaCloudUploadAlt className="text-3xl text-gray-600" />
+                    <span className="text-sm text-gray-600">Click to upload image</span>
+                    <input 
+                    type="file" 
+                    {...register("imageFile")} 
+                    className="hidden" 
+                    accept="image/*"
+                    onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                        setPreview(URL.createObjectURL(file));
+                        }
+                    }}
+                    />
+                </label>
+                </div>
+
+                {/* Image Preview */}
+                {preview && (
+                <div className="flex justify-center absolute left-1 bottom-11">
+                    <img src={preview} alt="Preview" className="w-16 h-16 object-cover rounded-md shadow-md mt-2" />
+                </div>
+                )}
+
+                <div className="flex justify-end gap-3">
                 <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 bg-gray-300 rounded-md">Cancel</button>
                 <button type="submit" className="px-4 py-2 bg-[var(--primary)] text-white rounded-md">{editingProduct ? "Update" : "Add"}</button>
-              </div>
+                </div>
             </form>
-          </div>
+            </div>
         </div>
-      )}
+        )}
     </div>
   );
 };

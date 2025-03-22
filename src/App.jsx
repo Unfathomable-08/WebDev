@@ -7,6 +7,8 @@ import Cart from "./components/Cart";
 import Favorite from "./components/Favorite";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductOverview from "./pages/admin/Products";
 
 const App = () => {
   const [cart, setCart] = useState([]); 
@@ -39,7 +41,7 @@ const App = () => {
         />
         <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
         <Route path="/Favorite" element={<Favorite />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/overview" element={<Dashboard />} />
           <Route path="/admin/products" element={<ProductOverview />} />
       </Routes>
     </BrowserRouter>

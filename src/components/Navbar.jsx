@@ -1,10 +1,25 @@
 import { FaHome, FaSearch, FaHeart, FaUser, FaShoppingCart, FaCog, FaFilter } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [searchBar, setSearchBar] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname;
+    const matchedRoute = 
+      path === "/" ? "Home" : 
+      path.includes("favorite") ? "Favorite" : 
+      path.includes("profile") ? "Profile" : 
+      path.includes("cart") ? "Cart" : 
+      path.includes("settings") ? "Settings" : "Home";
+    
+    setActive(matchedRoute);
+  }, [location.pathname]);
 
   return (
     <>
@@ -66,7 +81,7 @@ const Navbar = () => {
               { icon: FaShoppingCart, label: "Cart", path: "/cart" },
               { icon: FaCog, label: "Settings", path: "/settings" },
             ].map(({ icon: Icon, label, path }, index) => (
-              <Link to={path} passHref>
+              <Link to={path} passHref key={index}>
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -83,36 +98,38 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Bottom Navbar for Mobile */}
+      {/* Bottom Navbar (Only for sm & xs) */}
       <motion.div
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="fixed bottom-0 w-full bg-[var(--primary)] bg-opacity-90 backdrop-blur-lg shadow-xl border-t-16 border-white z-50 md:hidden flex justify-around py-2"
-      >
-        {[
-          { icon: FaHome, label: "Home", path: "/" },
-          { icon: FaHeart, label: "Favorite", path: "/Favorite" },
-          { icon: FaUser, label: "Profile", path: "/profile" },
-          { icon: FaShoppingCart, label: "Cart", path: "/Cart" },
-          { icon: FaCog, label: "Settings", path: "/settings" },
-        ].map(({ icon: Icon, label, path }, index) => (
-          <Link key={index} to={path} passHref>
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              className="flex flex-col items-center text-white transition-all duration-300 transform hover:text-yellow-300 w-10 h-10"
-            >
-              <Icon className="text-2xl" />
-              <p className="text-xs font-semibold">{label}</p>
-            </motion.div>
-          </Link>
-
-        ))}
-      </motion.div>
+         initial={{ y: 80, opacity: 0 }}
+         animate={{ y: 0, opacity: 1 }}
+         transition={{ duration: 1.2, ease: "easeOut" }}
+         className="fixed bottom-0 w-full bg-[var(--primary)] bg-opacity-90 backdrop-blur-lg shadow-xl border-t-16 border-white z-50 md:hidden flex justify-around py-2"
+       >
+         {[
+           { icon: FaHome, label: "Home" },
+           { icon: FaHeart, label: "Favorite" },
+           { icon: FaUser, label: "Profile" },
+           { icon: FaShoppingCart, label: "Cart" },
+           { icon: FaCog, label: "Settings" },
+         ].map(({ icon: Icon, label }, index) => (
+          <motion.div
+            key={index}
+            className={`${
+              label.toLowerCase() === active.toLowerCase() ? "active" : ""
+            } flex flex-col items-center text-white transition-all duration-300 transform hover:text-yellow-300 w-10 h-10`}
+            onClick={() => {
+              navigate(label === "Home" ? "/" : `/${label.toLowerCase()}`);
+            }}
+          >
+            <Icon className="text-2xl" />
+            <p className="text-xs font-semibold">{label}</p>
+          </motion.div>        
+         ))}
+       </motion.div>
 
       {/*  Search Bar on sm/xs */}
       {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && (
-          <div className="relative top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-6 justify-between px-8">
+          <div className="relative top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-2 sm:gap-6 justify-between px-4 sm:px-8">
               <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -129,7 +146,7 @@ const Navbar = () => {
               </motion.div>
 
               {/* Filter Button (Only visible on md screens) */}
-              <button className="hidden md:flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-full shadow-md hover:bg-[var(--secondary)] transition">
+              <button className="flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-full shadow-md hover:bg-[var(--secondary)] transition">
                   <FaFilter />
                   Filters
               </button>
