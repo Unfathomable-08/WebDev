@@ -1,13 +1,15 @@
 import { FaHome, FaSearch, FaHeart, FaUser, FaShoppingCart, FaCog, FaFilter } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { FiltersContext } from "../../Context";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [searchBar, setSearchBar] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { setFilters } = useContext(FiltersContext);
 
   useEffect(() => {
     const path = location.pathname;
@@ -146,7 +148,7 @@ const Navbar = () => {
               </motion.div>
 
               {/* Filter Button (Only visible on md screens) */}
-              <button className="flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-full shadow-md hover:bg-[var(--secondary)] transition">
+              <button onClick={()=>setFilters(prev => !prev)} className="flex items-center gap-2 bg-[var(--primary)] text-white px-4 py-2 rounded-full shadow-md hover:bg-[var(--secondary)] transition">
                   <FaFilter />
                   Filters
               </button>

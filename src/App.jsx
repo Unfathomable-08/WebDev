@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 import Dashboard from "./pages/admin/Dashboard";
 import ProductOverview from "./pages/admin/Products";
+import { FiltersProvider } from "../Context";
 
 const App = () => {
   const [cart, setCart] = useState([]); 
@@ -31,23 +32,25 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Login />} />
-        <Route path="/Product" element={<Product />} />
-        <Route
-          path="/Product/:id"
-          element={<ProductDetail handleAddToCart={handleAddToCart} />}
-        />
-        <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
-        <Route path="/Favorite" element={<Favorite />} />
-        <Route path="/profile" element={<ProfileScreen />} />
+      <FiltersProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/Product" element={<Product />} />
+          <Route
+            path="/Product/:id"
+            element={<ProductDetail handleAddToCart={handleAddToCart} />}
+          />
+          <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
+          <Route path="/Favorite" element={<Favorite />} />
+          <Route path="/profile" element={<ProfileScreen />} />
 
-        {/* Dashboard Routes */}
-        <Route path="/admin/overview" element={<Dashboard />} />
-        <Route path="/admin/products" element={<ProductOverview />} />
-      </Routes>
+          {/* Dashboard Routes */}
+          <Route path="/admin/overview" element={<Dashboard />} />
+          <Route path="/admin/products" element={<ProductOverview />} />
+        </Routes>
+      </FiltersProvider>
     </BrowserRouter>
   );
 };

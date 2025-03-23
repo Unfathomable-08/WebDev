@@ -47,6 +47,42 @@
   box-shadow: -3px -3px 0 white;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.resturant {
+  width: calc(33vw - 20px);
+}
+
+@media (min-width: 480px) {
+  .resturant {
+    width: calc(25vw - 20px);
+  }
+}
+
+@media (min-width: 660px) {
+  .resturant {
+    width: calc(20vw - 20px);
+  }
+}
+
+@media (min-width: 768px) {
+  .resturant {
+    width: calc(16.6666vw - 20px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .resturant {
+    width: calc(14.3vw - 20px);
+  }
+}
+
 /* Fade-in effect for delay */
 @keyframes fadeIn {
   from {
