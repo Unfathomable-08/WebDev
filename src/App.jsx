@@ -9,20 +9,38 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 
 const App = () => {
-  const [cart, setCart] = useState([]); 
+  const [cart, setCart] = useState([]);
+  const [favorite, setFavorite] = useState([]);
 
+  // Add To Cart
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const isExisting = prevCart.some((item) => item._id === product._id);
       if (!isExisting) {
         return [...prevCart, product];
       }
-      return prevCart; 
-    })
+      return prevCart;
+    });
   };
 
-   const handleRemoveFromCart = (productId) => {
+  const handleRemoveFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+  };
+
+  // Favorite
+  const handleFavorite = (product) => {
+    setFavorite((prevFav) => {
+      const isExist = prevFav.some((item) => item._id === product._id);
+      if (!isExist) {
+        return [...prevFav, product];
+      } else {
+        return prevFav.filter((item) => item._id !== product._id);
+      }
+    });
+  };
+
+  const handleRemoveFromFav = (productId) => {
+    setFavorite((prevFav) => prevFav.filter((item) => item._id !== productId));
   };
 
   return (
@@ -34,10 +52,25 @@ const App = () => {
         <Route path="/Product" element={<Product />} />
         <Route
           path="/Product/:id"
-          element={<ProductDetail handleAddToCart={handleAddToCart} />}
+          element={
+            <ProductDetail
+              handleAddToCart={handleAddToCart}
+              handleFavorite={handleFavorite}
+            />
+          }
         />
-        <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
-        <Route path="/Favorite" element={<Favorite />} />
+        <Route
+          path="/Cart"
+          element={
+            <Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />
+          }
+        />
+        <Route
+          path="/Favorite"
+          element={
+            <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

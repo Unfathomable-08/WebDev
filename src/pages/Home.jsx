@@ -1,9 +1,11 @@
 import Navbar from "../components/Navbar"
+import Product from "../components/Product"
 
 const Home = () => {
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
+<Product/>
     </div>
   )
 }
