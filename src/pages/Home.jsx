@@ -1,11 +1,10 @@
-import Navbar from "../components/Navbar"
-import Product from "../components/Product"
+import RestaurantSlider from "../components/ResturantSlider"
+
 
 const Home = () => {
   return (
     <div>
-      <Navbar/>
-      <Product/>
+      <RestaurantSlider/>
     </div>
   )
 }
