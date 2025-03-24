@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 
+
 const Favorite = ({ FavItem, handleRemoveFromFav }) => {
   return (
     <div className="max-w-4xl mx-auto mt-6">

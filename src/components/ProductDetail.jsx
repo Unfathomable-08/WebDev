@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useParams, Link } from "react-router-dom";
 
+
 const ProductDetail = ({ handleAddToCart, handleFavorite }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
