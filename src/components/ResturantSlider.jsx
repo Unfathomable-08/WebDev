@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const RestaurantSlider = () => {
+const RestaurantSlider = ({ title }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ const RestaurantSlider = () => {
   }, []);
 
   return (
-    <div className="relative w-full pt-22">
+    <div className="relative w-full">
       <h1 className="px-4 py-2 text-2xl font-bold text-gray-900">
-        Top Restaurants
+        { title }
       </h1>
       <div className="flex gap-x-4 overflow-x-auto no-scrollbar px-4 py-4">
         {restaurants.map((restaurant) => (

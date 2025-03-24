@@ -9,8 +9,9 @@ const Home = () => {
   return (
     <>
       {filters && <Filters/>}
-      <div className={filters ? "ms-[260px]" : ""}>
-        <RestaurantSlider />
+      <div className={filters && window.matchMedia("(min-width: 768px)").matches ? "ms-[260px] pt-22" : "pt-22"}>
+        <RestaurantSlider title="Top Resturants"/>
+        <RestaurantSlider title="Near You Area"/>
       </div>
     </>
   )

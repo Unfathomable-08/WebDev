@@ -5,6 +5,10 @@
 
 @import "tailwindcss";
 
+body {
+  height: 100vh !important;
+}
+
 .active {
   background-color: white !important;
   border-radius: 50%;

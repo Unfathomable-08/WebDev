@@ -57,8 +57,8 @@ export default function FilterModal() {
     };
 
     return (
-        <div className="fixed bg-white 
-            w-screen max-sm:min-h-[70vh] sm:h-[55vh] bottom-14 left-0 right-0 overflow-y-auto rounded-tl-3xl rounded-tr-3xl shadow-[0_-10px_10px_#00000055] p-4
+        <div className="fixed bg-white z-40
+            w-screen max-sm:h-[70vh] sm:h-[55vh] bottom-14 left-0 right-0 overflow-y-auto rounded-tl-3xl rounded-tr-3xl shadow-[0_-10px_10px_#00000055] p-4
             md:w-[250px] md:h-screen md:top-18 md:right-0 md:rounded-none md:shadow-xl md:border-l md:border-gray-200">
 
             {/* Header */}
