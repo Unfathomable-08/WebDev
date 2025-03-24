@@ -18,7 +18,7 @@ export const FiltersContext = createContext({});
 
 export const FiltersProvider = ({ children }) => {
   // Directly set the initial state based on screen width
-  const [filters, setFilters] = useState(window.matchMedia("(min-width: 768px)").matches);
+  const [filters, setFilters] = useState(window.matchMedia("(min-width: 980px)").matches);
 
   return (
     <FiltersContext.Provider value={{ filters, setFilters }}>

@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <>
-      <Filters/>
+      {filters && <Filters/>}
       <div className={filters ? "ms-[260px]" : ""}>
         <RestaurantSlider />
       </div>

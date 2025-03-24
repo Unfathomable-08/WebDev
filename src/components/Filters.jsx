@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { FaStar } from "react-icons/fa";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
+import { FiltersContext } from "../../Context";
 
-export default function FilterModal({ onClose }) {
+export default function FilterModal() {
+    const { setFilters } = useContext(FiltersContext);
     const [price, setPrice] = useState([0, 2000]);
     const [priceSel, setPriceSel] = useState([500, 1200]);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -62,7 +64,7 @@ export default function FilterModal({ onClose }) {
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
                 <h1 className="font-medium text-lg">Filters</h1>
-                <RxCross1 className="text-lg font-bold cursor-pointer" onClick={onClose} />
+                <RxCross1 className="text-lg font-bold cursor-pointer" onClick={()=>setFilters(prev => !prev)} />
             </div>
 
             {/* Price Range */}
@@ -121,10 +123,24 @@ export default function FilterModal({ onClose }) {
                         <FaStar
                             key={star}
                             className={`text-2xl cursor-pointer ${rating >= star ? "text-[var(--primary)]" : "text-gray-300"}`}
-                            onClick={() => setRating(star)}
+                            onClick={() => setRating(() => (rating == 1 && star == 1) ? null : star)}
                         />
                     ))}
                 </div>
+            </div>
+
+            {/* Clear Button */}
+            <div className="flex justify-center pt-6">
+                <button
+                    className="bg-[var(--primary)] text-white rounded-lg px-4 py-1"
+                    onClick={()=>{
+                        setPriceSel([500, 1200]);
+                        setSelectedCategories([]);
+                        setRating(null);
+                    }}
+                >
+                    Clear All
+                </button>
             </div>
         </div>
     );

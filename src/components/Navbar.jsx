@@ -9,7 +9,7 @@ const Navbar = () => {
   const [searchBar, setSearchBar] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { setFilters } = useContext(FiltersContext);
+  const { filters, setFilters } = useContext(FiltersContext);
 
   useEffect(() => {
     const path = location.pathname;
@@ -131,7 +131,7 @@ const Navbar = () => {
 
       {/*  Search Bar on sm/xs */}
       {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && (
-          <div className="relative top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-2 sm:gap-6 justify-between px-4 sm:px-8">
+          <div className={`relative z-20 top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-2 sm:gap-6 justify-between px-4 sm:px-8 ${filters && 'ml-[250px]'}`}>
               <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
