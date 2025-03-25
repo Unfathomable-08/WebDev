@@ -57,7 +57,7 @@ const App = () => {
           <Route path="/Product" element={<Product />} />
           <Route
             path="/Product/:id"
-            element={<ProductDetail handleAddToCart={handleAddToCart} />}
+            element={<ProductDetail handleAddToCart={handleAddToCart} handleFavorite={handleFavorite} />}
           />
           <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
           <Route path="/Favorite" element={ <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />} />
