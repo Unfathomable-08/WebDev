@@ -1,12 +1,18 @@
-import Navbar from "../components/Navbar"
-import Product from "../components/Product"
+import { useContext } from "react"
+import RestaurantSlider from "../components/ResturantSlider"
+import { FiltersContext } from "../../Context"
+import Filters from "../components/Filters"
 
 const Home = () => {
+  const { filters } = useContext(FiltersContext);
+
   return (
-    <div>
-      {/* <Navbar/> */}
-<Product/>
-    </div>
+    <>
+      {filters && <Filters/>}
+      <div className={filters ? "ms-[260px]" : ""}>
+        <RestaurantSlider />
+      </div>
+    </>
   )
 }
 

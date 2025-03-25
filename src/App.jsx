@@ -1,12 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import ProfileScreen from "./pages/ProfileScreen";
 import Product from "./components/Product";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Favorite from "./components/Favorite";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductOverview from "./pages/admin/Products";
+import { FiltersProvider } from "../Context";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -45,34 +49,25 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Login />} />
-        <Route path="/Product" element={<Product />} />
-        <Route
-          path="/Product/:id"
-          element={
-            <ProductDetail
-              handleAddToCart={handleAddToCart}
-              handleFavorite={handleFavorite}
-            />
-          }
-        />
-        
-        <Route
-          path="/Cart"
-          element={
-            <Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />
-          }
-        />
-        <Route
-          path="/Favorite"
-          element={
-            <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />
-          }
-        />
-      </Routes>
+      <FiltersProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/Product" element={<Product />} />
+          <Route
+            path="/Product/:id"
+            element={<ProductDetail handleAddToCart={handleAddToCart} />}
+          />
+          <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
+          <Route path="/Favorite" element={ <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />} />
+          <Route path="/profile" element={<ProfileScreen />} />
+
+          {/* Dashboard Routes */}
+          <Route path="/admin/overview" element={<Dashboard />} />
+          <Route path="/admin/products" element={<ProductOverview />} />
+        </Routes>
+      </FiltersProvider>
     </BrowserRouter>
   );
 };
