@@ -20,7 +20,7 @@ const RestaurantSlider = ({ title }) => {
 
   return (
     <div className="relative w-full">
-      <h1 className="px-4 py-2 text-2xl font-bold text-gray-900">
+      <h1 className="px-4 py-2 text-xl font-medium sm:font-bold lg:text-2xl text-gray-900">
         { title }
       </h1>
       <div className="flex gap-x-4 overflow-x-auto no-scrollbar px-4 py-4">
