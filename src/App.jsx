@@ -13,21 +13,38 @@ import ProductOverview from "./pages/admin/Products";
 import { FiltersProvider } from "../Context";
 
 const App = () => {
-  const [cart, setCart] = useState([]); 
+  const [cart, setCart] = useState([]);
+  const [favorite, setFavorite] = useState([]);
 
+  // Add To Cart
   const handleAddToCart = (product) => {
     setCart((prevCart) => {
       const isExisting = prevCart.some((item) => item._id === product._id);
       if (!isExisting) {
         return [...prevCart, product];
       }
-      return prevCart; 
-    })
+      return prevCart;
+    });
   };
 
-  // 🗑️ Function to Remove from Cart
   const handleRemoveFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+  };
+
+  // Favorite
+  const handleFavorite = (product) => {
+    setFavorite((prevFav) => {
+      const isExist = prevFav.some((item) => item._id === product._id);
+      if (!isExist) {
+        return [...prevFav, product];
+      } else {
+        return prevFav.filter((item) => item._id !== product._id);
+      }
+    });
+  };
+
+  const handleRemoveFromFav = (productId) => {
+    setFavorite((prevFav) => prevFav.filter((item) => item._id !== productId));
   };
 
   return (
@@ -43,7 +60,7 @@ const App = () => {
             element={<ProductDetail handleAddToCart={handleAddToCart} />}
           />
           <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
-          <Route path="/Favorite" element={<Favorite />} />
+          <Route path="/Favorite" element={ <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />} />
           <Route path="/profile" element={<ProfileScreen />} />
 
           {/* Dashboard Routes */}

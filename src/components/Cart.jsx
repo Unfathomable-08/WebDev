@@ -5,6 +5,7 @@ const Cart = ({ cartItems, handleRemoveFromCart }) => {
     <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Cart</h1>
       {cartItems.length === 0 ? (
+        
         <p className="text-gray-500">Your cart is empty.</p>
       ) : (
         <ul className="space-y-4">
