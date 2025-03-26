@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
 import { FiltersContext } from "../../Context";
+import { motion } from "framer-motion";
 
 export default function FilterModal() {
     const { setFilters } = useContext(FiltersContext);
@@ -55,10 +56,15 @@ export default function FilterModal() {
     };
 
     return (
-        <div className="fixed bg-white z-40
+        <motion.div
+            className="fixed bg-white z-40
             w-screen max-sm:h-[70vh] sm:h-[55vh] left-0 overflow-y-auto rounded-tl-3xl rounded-tr-3xl shadow-[0_-10px_10px_#00000055] p-4
             md:w-[250px] md:h-screen md:right-0 md:rounded-none md:shadow-xl md:border-l md:border-gray-200
-            top-[100vh] md:top-18">
+            top-[100vh] md:top-18"
+            initial={{opacity: 0, x : "-100%"}}
+            whileInView={{opacity: 1, x: "0%"}}
+            transition={{ease: "easeInOut", duration: 1}}
+        >
 
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
@@ -103,7 +109,7 @@ export default function FilterModal() {
                     {categories.map((category) => (
                         <button
                             key={category}
-                            className={`px-4 py-2 rounded-full border 
+                            className={`px-4 py-2 rounded-full border cursor-pointer 
                                 ${selectedCategories.includes(category) ? "bg-[var(--primary)] border-[var(--primary)] text-white" : "border-gray-300"} 
                                 transition-all`}
                             onClick={() => handleCategoryClick(category)}
@@ -141,6 +147,6 @@ export default function FilterModal() {
                     Clear All
                 </button>
             </div>
-        </div>
+        </motion.div>
     );
 }
