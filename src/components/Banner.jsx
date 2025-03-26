@@ -66,7 +66,7 @@ const Banner = () => {
       </motion.div>
 
       {/* Right Section - 3D Model */}
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-1/2 flex items-center justify-center me-24 mb-16">
         <Canvas>
           <Suspense fallback={null}>
             <Stage intensity={1.2}>
