@@ -129,8 +129,9 @@ const Navbar = () => {
          ))}
        </motion.div>
 
-      {/*  Search Bar on sm/xs */}
-      {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && (
+      {/*  Search Bar on sm/xs/md */}
+      {/* {(searchBar || (window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches)) && ( */}
+      {searchBar && (
           <div className={`relative z-30 top-20 drop-shadow-xl my-2 pb-8 flex items-center gap-2 sm:gap-6 justify-between px-4 sm:px-8 ${(filters && window.matchMedia("(min-width: 768px) and (max-width:1023px)").matches) && 'ml-[250px]'}`}>
               <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}

@@ -87,6 +87,23 @@ body {
   }
 }
 
+@media (max-width: 520px) {
+  .morphism {
+    padding: 0 0 0 5px !important;
+  }
+  .morphism>div {
+    padding: 10px 0 !important;
+  }
+  .morphism button:nth-child(2) {
+    display: none;
+  }
+  .morphism button:nth-child(1) {
+    padding: 5px !important;
+    width: 84%;
+    margin: 0 8%;
+  }
+}
+
 /* Fade-in effect for delay */
 @keyframes fadeIn {
   from {

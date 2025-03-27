@@ -4,6 +4,11 @@ import { useGLTF } from "@react-three/drei";
 // Licensed under CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/);
 
 const FoodModel = () => {
+  if (!navigator.onLine) {
+    console.warn("No internet connection. Model won't work.");
+    return; // To avoid fatal error
+  }
+
   const { scene } = useGLTF("/model/scene.gltf"); // Path to your model
 
   return <primitive object={scene} scale={2.5} position={[0, -1, 0]} />; 
