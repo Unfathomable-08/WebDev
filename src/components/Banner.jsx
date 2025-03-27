@@ -56,14 +56,14 @@ const Banner = () => {
           >
             {/* Find Nearby Restaurants Button */}
             <button
-              className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-300 text-black md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full shadow-md whitespace-nowrap text-sm"
+              className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-300 text-black md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full shadow-md whitespace-nowrap text-sm cursor-pointer"
             >
               Nearby Restaurants
             </button>
 
             {/* View Menu & Order Button */}
             <button
-              className="w-full sm:w-auto border border-yellow-300 text-yellow-300 md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full hover:bg-yellow-300 hover:text-black transition-transform whitespace-nowrap text-sm"
+              className="w-full sm:w-auto border border-yellow-300 text-yellow-300 md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full hover:bg-yellow-300 hover:text-black transition-transform whitespace-nowrap text-sm cursor-pointer"
             >
               View Menu
             </button>

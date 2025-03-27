@@ -11,6 +11,7 @@ import { useState } from "react";
 import Dashboard from "./pages/admin/Dashboard";
 import ProductOverview from "./pages/admin/Products";
 import { FiltersProvider } from "../Context";
+import Location from "./pages/Location";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/Cart" element={<Cart cartItems={cart} handleRemoveFromCart={handleRemoveFromCart} />} />
           <Route path="/Favorite" element={ <Favorite FavItem={favorite} handleRemoveFromFav={handleRemoveFromFav} />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/location" element={<Location />} />
 
           {/* Dashboard Routes */}
           <Route path="/admin/overview" element={<Dashboard />} />
