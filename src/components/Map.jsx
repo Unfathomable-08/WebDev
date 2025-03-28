@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
 
 // Component to recenter the map when position changes
 const RecenterMap = ({ position }) => {
@@ -27,8 +26,8 @@ const Map = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center relative z-5">
-        <MapContainer center={position} zoom={13} className="h-[500px] max-w-[900px] w-full rounded-2xl shadow-2xl border border-gray-300">
+    <div className="flex justify-center items-center relative z-5 p-8 pt-0">
+        <MapContainer center={position} zoom={13} className="h-[400px] max-w-[900px] w-full rounded-2xl shadow-2xl border border-gray-300">
         <TileLayer
             url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
             attribution="&copy; Google Maps"

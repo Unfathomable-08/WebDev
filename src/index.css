@@ -64,28 +64,6 @@ body {
   width: calc(33vw - 20px);
 }
 
-.leaflet-control-zoom {
-  background-color: transparent !important; 
-  border-radius: 0px !important;
-  overflow: hidden !important;
-}
-
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-  background: var(--primary) !important;
-  color: white !important;
-  font-size: 22px !important;
-  border: 1px solid white !important;
-  width: 40px !important;
-  height: 40px !important;
-}
-
-.leaflet-control-zoom-in:hover,
-.leaflet-control-zoom-out:hover {
-  background: var(--secondary) !important;
-}
-
-
 @media (min-width: 480px) {
   .resturant {
     width: calc(25vw - 20px);
