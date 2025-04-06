@@ -63,7 +63,7 @@ const Banner = () => {
 
             {/* View Menu & Order Button */}
             <button
-              className="w-full sm:w-auto border border-yellow-300 text-yellow-300 md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full hover:bg-yellow-300 hover:text-black transition-transform whitespace-nowrap text-sm cursor-pointer"
+              className="w-full sm:w-auto border border-yellow-300 text-yellow-300 md:font-medium px-5 sm:px-4 sm:py-2.5 py-1.5 rounded-full hover:bg-yellow-300 hover:text-black transition-transform whitespace-nowrap text-sm cursor-p"
             >
               View Menu
             </button>

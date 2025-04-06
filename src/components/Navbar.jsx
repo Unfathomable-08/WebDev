@@ -24,7 +24,7 @@ const Navbar = () => {
   }, [location.pathname]);
 
   return (
-    <>
+    <div className={location.pathname === "/auth" && "hidden"}>
       {/* Top Navbar */}
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
@@ -155,7 +155,7 @@ const Navbar = () => {
               </button>
           </div>
       )}
-    </>
+    </div>
   );
 };
 

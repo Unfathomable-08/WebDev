@@ -13,7 +13,7 @@ const restaurants = [
 
 const getMatrixDistance = async (locations) => {
     const apiKey = import.meta.env.VITE_ORS_API_KEY;
-    const url = "https://api.openrouteservice.org/v2/matrix/driving-car";
+    const url = "https://api.openrouteservice.org/v2/matrix/cycling-regular";
 
     const body = {
         locations,
@@ -63,7 +63,7 @@ const Location = () => {
         const fetchDistances = async () => {
             const destinations = restaurants.map((r) => [r.lon, r.lat]);
             const locations = [position, ...destinations];
-console.log(locations[0])
+
             const results = await getMatrixDistance(locations);
             setDistances(results.slice(1)); // Remove self-distance (first item)
         };
